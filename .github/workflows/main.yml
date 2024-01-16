@@ -93,6 +93,6 @@ jobs:
           
           git config --global user.email 'dldmschd97@gmail.com'
           git config --global user.name 'Eeunchong'
-          git add ./yaml/kustomize/kustomization.yml
+          git add ./yaml/was/kustomization.yml
           git commit -m "Update image tag to ${{ env.RELEASE_VERSION }}"
           git push
