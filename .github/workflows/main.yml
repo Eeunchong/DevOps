@@ -59,15 +59,20 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:v${{ env.RELEASE_VERSION }}
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:latest
 
-      - name: Get EKS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2
+      # - name: Get EKS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ap-northeast-2
       
-      - name: Update kube config
-        run: aws eks update-kubeconfig --name test --region ap-northeast-2
+      # - name: Update kube config
+      #   run: aws eks update-kubeconfig --name test --region ap-northeast-2
       
-      - name: was-deploy restart
-        run: kubectl set image deploy mywas mywas=${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:v${{ env.RELEASE_VERSION }}
+      # - name: was-deploy restart
+      #   run: kubectl set image deploy mywas mywas=${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:v${{ env.RELEASE_VERSION }}
+
+      - name: ArgoCD Application Deployment
+        run: |
+          argocd app create rapa-devops-test --repo ${{ secrets.GIT_REPO_URL }} --path yaml/was/ --dest-server ${{ secrets.CLUSTER_ADDRESS }} --dest-namespace argocd
+          argocd app sync rapa-devops-test
