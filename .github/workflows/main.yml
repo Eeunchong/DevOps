@@ -71,12 +71,28 @@ jobs:
       
       # - name: was-deploy restart
       #   run: kubectl set image deploy mywas mywas=${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:v${{ env.RELEASE_VERSION }}
-      - name: Install ArgoCD CLI
-        uses: imajeetyadav/argocd-cli@v1
-        with:
-          package: argocd
 
-      - name: ArgoCD Application Deployment
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          path: git-cicd
+
+      # 새 이미지 버전으로 파일 수정
+      - name: Update Kubernetes resources
         run: |
-          argocd app create rapa-devops-test --repo https://github.com/Eeunchong/rapa-devops.git --path ./yaml/was/ --dest-server argocd.eunch.com --dest-namespace argocd
-          argocd app sync rapa-devops-test --dest-server argocd.eunch.com
+          cd ./yaml/kustomize/
+          kustomize edit set image cicd-image=jongdo737/rapa-cidc:${{ env.RELEASE_VERSION }}
+          cat kustomization.yml
+          
+      # 수정된 파일 commit & push
+      - name: Commit files
+        run: |
+          
+          git config --global user.email 'dldmschd97@gmail.com'
+          git config --global user.name 'Eeunchong'
+          git add ./yaml/kustomize/kustomization.yml
+          git commit -m "Update image tag to ${{ env.RELEASE_VERSION }}"
+          git push
