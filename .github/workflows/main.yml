@@ -78,5 +78,5 @@ jobs:
 
       - name: ArgoCD Application Deployment
         run: |
-          argocd app create rapa-devops-test --repo ${{ secrets.GIT_REPO_URL }} --path yaml/was/ --dest-server https://kubernetes.default.svc --dest-namespace argocd
-          argocd app sync rapa-devops-test --dest-server https://kubernetes.default.svc
+          argocd app create rapa-devops-test --repo ${{ secrets.GIT_REPO_URL }} --path yaml/was/ --dest-server www.eunch.com --dest-namespace argocd
+          argocd app sync rapa-devops-test --dest-server www.eunch.com
