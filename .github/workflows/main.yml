@@ -84,7 +84,7 @@ jobs:
       - name: Update Kubernetes resources
         run: |
           cd ./yaml/
-          kustomize edit set image cicd-image=jongdo737/rapa-cidc:${{ env.RELEASE_VERSION }}
+          kustomize edit set image cicd-image=eeunchong/rapa-cicdlab2:${{ env.RELEASE_VERSION }}
           cat kustomization.yml
           
       # 수정된 파일 commit & push
