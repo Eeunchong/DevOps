@@ -79,4 +79,4 @@ jobs:
       - name: ArgoCD Application Deployment
         run: |
           argocd app create rapa-devops-test --repo ${{ secrets.GIT_REPO_URL }} --path yaml/was/ --dest-server ${{ secrets.CLUSTER_ADDRESS }} --dest-namespace argocd
-          argocd app sync rapa-devops-test
+          argocd app sync rapa-devops-test --dest-server ${{ secrets.CLUSTER_ADDRESS }}
