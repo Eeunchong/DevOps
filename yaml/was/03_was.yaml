@@ -16,7 +16,7 @@ kind: Deployment
 metadata:
   name: mywas
 spec:
-  replicas: 5
+  replicas: 3
   selector:       #selector와 labels를 서비스와 일치시켜야 함
     matchLabels:
       app: mywas
