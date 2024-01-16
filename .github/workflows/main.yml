@@ -72,7 +72,7 @@ jobs:
       # - name: was-deploy restart
       #   run: kubectl set image deploy mywas mywas=${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:v${{ env.RELEASE_VERSION }}
       - name: Install ArgoCD CLI
-        uses: docker/setup-cli-action@v2
+        uses: actions/setup-cli-action@v2
         with:
           package: argocd
           version: v2.0.4  # 원하는 ArgoCD 버전으로 변경
