@@ -71,4 +71,3 @@ jobs:
       
       - name: was-deploy restart
         run: kubectl set image deploy mywas mywas=${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:v${{ env.RELEASE_VERSION }}
-
