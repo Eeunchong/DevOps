@@ -7,5 +7,9 @@ resources:
 images:
 - name: cicd-image
   newName: eeunchong/rapa-cicdlab2
+<<<<<<< HEAD
   newTag: latest 
+=======
+  newTag: "24"
+>>>>>>> fb14185e9c509621d3d85b18826dbf8b0167d254
 namespace: default
