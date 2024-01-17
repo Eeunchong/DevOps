@@ -59,40 +59,16 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:v${{ env.RELEASE_VERSION }}
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:latest
 
-      # - name: Get EKS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ap-northeast-2
-      
-      # - name: Update kube config
-      #   run: aws eks update-kubeconfig --name test --region ap-northeast-2
-      
-      # - name: was-deploy restart
-      #   run: kubectl set image deploy mywas mywas=${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:v${{ env.RELEASE_VERSION }}
-
-      - name: Setup Kustomize
-        uses: imranismail/setup-kustomize@v1
-
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Get EKS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          path: git-cicd
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+      
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name test --region ap-northeast-2
+      
+      - name: was-deploy restart
+        run: kubectl set image deploy mywas mywas=${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:v${{ env.RELEASE_VERSION }}
 
-      # 새 이미지 버전으로 파일 수정
-      - name: Update Kubernetes resources
-        run: |
-          cd ./yaml/was/
-          kustomize edit set image cicd-image=eeunchong/rapa-cicdlab2:${{ env.RELEASE_VERSION }}
-          cat kustomization.yml
-          
-      # 수정된 파일 commit & push
-      - name: Commit files
-        run: |
-          
-          git config --global user.email 'dldmschd97@gmail.com'
-          git config --global user.name 'Eeunchong'
-          git add ./yaml/was/kustomization.yml
-          git commit -m "Update image tag to ${{ env.RELEASE_VERSION }}"
-          git push
