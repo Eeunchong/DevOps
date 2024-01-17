@@ -6,6 +6,6 @@ resources:
 - 03_was.yaml
 images:
 - name: cicd-image
-  newName: eeunchong/rapa-cicdlab2
-  newTag: "27"
+  newName: eeunchong/rapa-cicdlab3
+  newTag: "1"
 namespace: default
