@@ -55,7 +55,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
         
-      - name: docer push
+      - name: docker push
         run: | 
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:v${{ env.RELEASE_VERSION }}
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/rapa-cicdlab2:latest
