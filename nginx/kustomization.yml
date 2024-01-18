@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+patchesStrategicMerge:
+- 04_nginx.yaml
+resources:
+- 04_nginx.yaml
+images:
+- name: nginx-image
+  newName: public.ecr.aws/e1q1j6q7/nginx
+  newTag: latest
+namespace: default

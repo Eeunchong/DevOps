@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+patchesStrategicMerge:
+- 02_redis.yaml
+resources:
+- 02_redis.yaml
+images:
+- name: redis-image
+  newName: public.ecr.aws/e1q1j6q7/redis
+  newTag: v1
+namespace: default
