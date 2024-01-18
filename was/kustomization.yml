@@ -5,7 +5,13 @@ patchesStrategicMerge:
 resources:
 - 03_was.yaml
 images:
+<<<<<<< HEAD:was/kustomization.yml
 - name: was-image
   newName: public.ecr.aws/e1q1j6q7/was
   newTag: v1
+=======
+- name: cicd-image
+  newName: eeunchong/rapa-cicdlab2
+  newTag: v32
+>>>>>>> 83b78dc9da93f9d48cb44cd2431033b9a10951c6:yaml/was/kustomization.yml
 namespace: default
